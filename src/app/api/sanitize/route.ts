@@ -1,4 +1,4 @@
-import { sanitizeObject } from '@/utils/sanitizer';
+import { sanitizeObject } from '@/utils/sanitier';
 import { NextResponse } from 'next/server';
 
 export async function POST(req: Request) {
