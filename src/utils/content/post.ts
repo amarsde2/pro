@@ -9,12 +9,9 @@ const postsDir = path.join(process.cwd(), '/src/utils/content/posts');
 export function getAllPostsSlugs() {
   const files = fs.readdirSync(postsDir);
   return files.map(filename => ({
-    params: {
-      slug: filename.replace(/\.md$/, '')
-    }
+    slug: filename.replace(/\.md$/, '')
   }));
 }
-
 export async function getPostBySlug(slug: string) {
   const fullPath = path.join(postsDir, `${slug}.md`);
   const fileContents = fs.readFileSync(fullPath, 'utf8');

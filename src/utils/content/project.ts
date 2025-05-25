@@ -9,9 +9,7 @@ const projectsDir = path.join(process.cwd(), '/src/utils/content/projects');
 export function getAllProjectSlugs() {
   const files = fs.readdirSync(projectsDir);
   return files.map(filename => ({
-    params: {
-      slug: filename.replace(/\.md$/, '')
-    }
+    slug: filename.replace(/\.md$/, '')
   }));
 }
 
