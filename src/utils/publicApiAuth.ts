@@ -8,7 +8,7 @@ const redis = new Redis({
   token: process.env.UPSTASH_REDIS_REST_TOKEN!,
 });
 
-const ALLOWED_ORIGIN = process.env.NEXT_PUBLIC_API_URL || 'https://amaraiverse.com/';
+const ALLOWED_ORIGIN = 'https://www.amaraiverse.com/';
 const RATE_LIMIT = 100; // requests per 24h
 const RATE_LIMIT_WINDOW_SECONDS = 60 * 60 * 24; // 24h
 
@@ -21,7 +21,7 @@ interface Options {
 // ✅ Origin check: only allow requests from your site
 function isAllowedOrigin(referer: string | null): boolean {
   return referer?.startsWith(ALLOWED_ORIGIN) ?? false;
-}
+}https://www.amaraiverse.com/
 
 // ✅ IP allowlist
 function isAllowedIP(ip: string | null, allowedIPs?: string[]): boolean {
