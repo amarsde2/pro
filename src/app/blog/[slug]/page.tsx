@@ -2,14 +2,13 @@ import BlogDetails from '@/components/BlogDetails';
 import { getPostBySlug, getAllPostsSlugs } from '@/utils/content/post';
 import { Metadata } from 'next';
 
-// 🔥 Generate dynamic metadata based on slug
+// Generate dynamic metadata based on slug
 export async function generateMetadata({
   params,
 }: {
-  params: { slug: string };  // <-- not Promise
+  params: { slug: string };  // <-- params is a plain object
 }): Promise<Metadata> {
-  const { slug } = params; // no await
-  const post = await getPostBySlug(slug);
+  const post = await getPostBySlug(params.slug);
 
   return {
     title: `${post.title} | Amaraiverse`,
@@ -21,18 +20,17 @@ export async function generateMetadata({
   };
 }
 
+// Generate all static params for pre-rendering
 export async function generateStaticParams() {
   return getAllPostsSlugs();
 }
 
-export default async function BlogDetail(
-  {
-    params,
-  }: {
-    params: { slug: string };  // <-- not Promise
-  }
-) {
-  const { slug } = params;  // no await
-  const post = await getPostBySlug(slug);
+// The actual page component
+export default async function BlogDetail({
+  params,
+}: {
+  params: { slug: string };  // <-- params is plain object, no Promise here!
+}) {
+  const post = await getPostBySlug(params.slug);
   return <BlogDetails post={post} />;
 }

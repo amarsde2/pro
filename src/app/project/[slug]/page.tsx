@@ -2,14 +2,13 @@ import ProjectDetails from '@/components/ProjectDetails';
 import { getProjectBySlug, getAllProjectSlugs } from '@/utils/content/project';
 import { Metadata } from 'next';
 
-// 🔥 Generate dynamic metadata based on slug
+// Generate dynamic metadata based on slug
 export async function generateMetadata({
   params,
 }: {
-  params: { slug: string };  // <-- no Promise here
+  params: { slug: string };  // params is a plain object, no Promise
 }): Promise<Metadata> {
-  const { slug } = params;  // no await
-  const project = await getProjectBySlug(slug);
+  const project = await getProjectBySlug(params.slug);
 
   return {
     title: `${project.title} | Amaraiverse`,
@@ -21,16 +20,17 @@ export async function generateMetadata({
   };
 }
 
+// Generate static params for pre-rendering
 export async function generateStaticParams() {
   return getAllProjectSlugs();
 }
 
+// The page component itself
 export default async function ProjectDetail({
   params,
 }: {
-  params: { slug: string };  // <-- no Promise here
+  params: { slug: string };  // params is a plain object, no Promise
 }) {
-  const { slug } = params;  // no await
-  const project = await getProjectBySlug(slug);
+  const project = await getProjectBySlug(params.slug);
   return <ProjectDetails project={project} />;
 }
