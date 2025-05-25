@@ -62,9 +62,6 @@ export function publicApiAuth(
   return async function (req: NextRequest) {
     const referer = req.headers.get('referer') || req.headers.get('origin');
     const ip = req.headers.get('x-forwarded-for')?.split(',')[0].trim() || '';
-   
-    console.log(referer);
-    console.log(ip);
 
     // 1. Allow only known origin
     if (!isAllowedOrigin(referer)) {
