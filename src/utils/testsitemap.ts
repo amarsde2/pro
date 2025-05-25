@@ -1,5 +1,5 @@
 import { MetadataRoute } from 'next';
-import  {getAllPosts} from "@/utils/content/post";
+import { getAllPosts } from '@/utils/content/post';
 import { getAllProjects } from './content/project';
 
 export default async function sitemapItems(): Promise<MetadataRoute.Sitemap> {
@@ -7,14 +7,13 @@ export default async function sitemapItems(): Promise<MetadataRoute.Sitemap> {
   const projects = getAllProjects();
   const baseUrl = process.env.NEXT_PUBLIC_API_URL || 'https://amaraiverse.com';
 
-  // Static routes
   const staticRoutes = [
     {
       url: baseUrl,
       lastModified: new Date(),
       changeFrequency: 'daily' as const,
       priority: 1,
-      title : 'Home',
+      title: 'Home',
     },
     {
       url: `${baseUrl}/privacy-policy`,
@@ -28,26 +27,25 @@ export default async function sitemapItems(): Promise<MetadataRoute.Sitemap> {
       lastModified: new Date(),
       changeFrequency: 'daily' as const,
       priority: 0.7,
-      title : 'Terms and conditions',
+      title: 'Terms and conditions',
     },
   ];
 
-  // Blog post routes
-  const postRoutes = posts.map((post:any) => ({
+  const postRoutes = posts.map((post: any) => ({
     url: `${baseUrl}/blog/${post.slug}`,
     lastModified: new Date(post.publishDate),
     changeFrequency: 'weekly' as const,
     priority: 0.7,
-    title : post.title,
+    title: post.title,
   }));
 
-  const projectRoutes = projects.map((project:any) => ({
+  const projectRoutes = projects.map((project: any) => ({
     url: `${baseUrl}/project/${project.slug}`,
-    lastModified: Date.now(),
+    lastModified: new Date(), // fixed from Date.now()
     changeFrequency: 'weekly' as const,
     priority: 0.7,
-    title : project.title,
+    title: project.title,
   }));
 
-  return [...staticRoutes, ...postRoutes,...projectRoutes];
+  return [...staticRoutes, ...postRoutes, ...projectRoutes];
 }

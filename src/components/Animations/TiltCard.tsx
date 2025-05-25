@@ -7,6 +7,13 @@ import VanillaTilt from 'vanilla-tilt';
 type TiltCardProps = {
   children: React.ReactNode;
   className?: string;
+  tiltMaxAngleX?: number;
+  tiltMaxAngleY?: number;
+  transitionProps?: {
+    duration?: number;
+    ease?: string;
+  };
+  // Add any other props here
 };
 
 export default function TiltCard({ children, className = '' }: TiltCardProps) {

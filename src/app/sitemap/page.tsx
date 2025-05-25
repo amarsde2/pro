@@ -36,7 +36,7 @@ const Sitemap = async () => {
         <div className="mt-8 text-gray-300">
           <p>
             This sitemap includes all important pages including blog posts and project case studies. 
-            If you're looking for something specific, try the search bar or contact us.
+            If you &lsquo;re looking for something specific, try the search bar or contact us.
           </p>
         </div>
       </div>

@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import type { NextRequest } from 'next/server';
+import { NextRequest } from 'next/server';
 import { Redis } from '@upstash/redis';
 
 const redis = new Redis({
@@ -24,6 +24,14 @@ function isProtectedPath(pathname: string): boolean {
 
 function isPublicPath(pathname: string): boolean {
   return PUBLIC_PATHS.includes(pathname);
+}
+
+function getClientIp(request: NextRequest): string {
+  const xff = request.headers.get('x-forwarded-for');
+  if (xff) return xff.split(',')[0].trim();
+  const realIp = request.headers.get('x-real-ip');
+  if (realIp) return realIp;
+  return 'unknown';
 }
 
 
@@ -53,7 +61,7 @@ export async function middleware(request: NextRequest) {
   response.cookies.set('nonce', nonce, {
     httpOnly: true,
     secure: true,
-    sameSite: 'Lax',
+    sameSite: 'lax',
   });
 
   const securityHeaders = {
@@ -81,7 +89,7 @@ export async function middleware(request: NextRequest) {
       return withSecurity(response);
     }
 
-    const ip = request.ip || request.headers.get('x-forwarded-for')?.split(',')[0] || request.headers.get('x-real-ip') || 'unknown';
+    const ip = getClientIp(request);
     const key = `ratelimit:${ip}`;
     const count = await redis.incr(key);
     if (count === 1) await redis.pexpire(key, RATE_LIMIT_WINDOW);

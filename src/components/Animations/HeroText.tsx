@@ -9,7 +9,8 @@ export default function HeroText({
     { text: 'Amar Kumar', className: 'text-[#915EFF]' },
   ],
 }) {
-  const headingRef = useRef(null);
+  const headingRef = useRef<HTMLSpanElement | null>(null);
+
   const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {

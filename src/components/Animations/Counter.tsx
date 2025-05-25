@@ -10,9 +10,9 @@ interface NumberProps {
 }
 
 function Number({ mv, number, height }: NumberProps) {
-  let y = useTransform(mv, (latest) => {
-    let placeValue = latest % 10;
-    let offset = (10 + number - placeValue) % 10;
+  const y = useTransform(mv, (latest) => {
+    const placeValue = latest % 10;
+    const offset = (10 + number - placeValue) % 10;
     let memo = offset * height;
     if (offset > 5) {
       memo -= 10 * height;
@@ -34,8 +34,8 @@ interface DigitProps {
 }
 
 function Digit({ place, value, height, digitStyle }: DigitProps) {
-  let valueRoundedToPlace = Math.floor(value / place);
-  let animatedValue = useSpring(valueRoundedToPlace);
+  const valueRoundedToPlace = Math.floor(value / place);
+  const animatedValue = useSpring(valueRoundedToPlace);
   useEffect(() => {
     animatedValue.set(valueRoundedToPlace);
   }, [animatedValue, valueRoundedToPlace]);
@@ -62,8 +62,7 @@ interface CounterProps {
   counterStyle?: React.CSSProperties;
   digitStyle?: React.CSSProperties;
   gradientHeight?: number;
-  gradientFrom?: string;
-  gradientTo?: string;
+
   topGradientStyle?: React.CSSProperties;
   bottomGradientStyle?: React.CSSProperties;
   sign?: string;
@@ -83,8 +82,7 @@ export default function Counter({
   counterStyle,
   digitStyle,
   gradientHeight = 16,
-  gradientFrom = "black",
-  gradientTo = "transparent",
+ 
   topGradientStyle,
   bottomGradientStyle,
   sign

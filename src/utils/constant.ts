@@ -20,6 +20,9 @@ export const menuItems: navLink[] = [
   { id: 7, label: 'Contact', href: '#contact' },
 ];
 
+
+
+
 export const socialItems: GlassIconsItem[] = [
   { icon: FaLinkedinIn, color: '#915EFF', label: 'LinkedIn', href:'https://linkedin.com/in/amarinfo' },
   { icon: FaGithub, color: '#915EFF', label: 'GitHub', href:'https://github.com/amarsde2'  },

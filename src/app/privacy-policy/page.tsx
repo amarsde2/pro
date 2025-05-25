@@ -77,7 +77,7 @@ const PrivacyPolicy = () => {
           <section className="mb-8">
             <h2 className="text-2xl font-semibold text-white mb-4">7. Updates to This Policy</h2>
             <p className="text-gray-300">
-              We may update this Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page and updating the "Last Updated" date.
+              We may update this Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page and updating the &lquote; Last Updated &rquote; date.
             </p>
           </section>
         </div>
