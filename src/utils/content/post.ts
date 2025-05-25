@@ -12,6 +12,7 @@ export function getAllPostsSlugs() {
     slug: filename.replace(/\.md$/, '')
   }));
 }
+
 export async function getPostBySlug(slug: string) {
   const fullPath = path.join(postsDir, `${slug}.md`);
   const fileContents = fs.readFileSync(fullPath, 'utf8');
@@ -26,13 +27,12 @@ export async function getPostBySlug(slug: string) {
     category: data.category,
     slug,
     content,
-    publishDate:data.publishDate,
+    publishDate: data.publishDate,
     banner: data.banner,
-    readingTime:data.readingTime,
+    readingTime: data.readingTime,
     contentHtml,
   };
 }
-
 
 export function getAllPosts() {
   const fileNames = fs.readdirSync(postsDir);
@@ -41,7 +41,6 @@ export function getAllPosts() {
     const slug = fileName.replace(/\.md$/, '');
     const fullPath = path.join(postsDir, fileName);
     const fileContents = fs.readFileSync(fullPath, 'utf8');
-    
     const { data } = matter(fileContents);
 
     return {

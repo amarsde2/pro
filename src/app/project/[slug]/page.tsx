@@ -2,13 +2,14 @@ import ProjectDetails from '@/components/ProjectDetails';
 import { getProjectBySlug, getAllProjectSlugs } from '@/utils/content/project';
 import { Metadata } from 'next';
 
-// Generate dynamic metadata based on slug
+// Generate dynamic metadata based on slug (params is Promise here)
 export async function generateMetadata({
   params,
 }: {
-  params: { slug: string };  // params is a plain object, no Promise
+  params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
-  const project = await getProjectBySlug(params.slug);
+  const { slug } = await params; // await the promise here
+  const project = await getProjectBySlug(slug);
 
   return {
     title: `${project.title} | Amaraiverse`,
@@ -20,17 +21,18 @@ export async function generateMetadata({
   };
 }
 
-// Generate static params for pre-rendering
+// Generate static params (still returns plain objects, no Promise)
 export async function generateStaticParams() {
-  return getAllProjectSlugs();
+  return getAllProjectSlugs();  // returns Array<{ slug: string }>
 }
 
-// The page component itself
+// Page component (params is a Promise here)
 export default async function ProjectDetail({
   params,
 }: {
-  params: { slug: string };  // params is a plain object, no Promise
+  params: Promise<{ slug: string }>;
 }) {
-  const project = await getProjectBySlug(params.slug);
+  const { slug } = await params;  // await here
+  const project = await getProjectBySlug(slug);
   return <ProjectDetails project={project} />;
 }
