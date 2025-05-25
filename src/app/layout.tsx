@@ -7,6 +7,8 @@ import PageWithLoader from '@/components/Includes/PageWithLoader';
 import Script from "next/script";
 import AntiInspect from "@/components/disableRight";
 import { cookies } from 'next/headers';
+import { Analytics } from "@vercel/analytics/next"
+
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -64,7 +66,7 @@ export default async function RootLayout({
       >
          <Script strategy="afterInteractive" id="nonce-script" nonce={nonce} dangerouslySetInnerHTML={{ __html: `__turbopack_nonce__ = ${JSON.stringify(nonce)}` }}
                   />
-
+        <Analytics />
         <AntiInspect />
         <PageWithLoader duration={2000}>
        
