@@ -2,14 +2,13 @@ import ProjectDetails from '@/components/ProjectDetails';
 import { getProjectBySlug, getAllProjectSlugs } from '@/utils/content/project';
 import { Metadata } from 'next';
 
-
 // 🔥 Generate dynamic metadata based on slug
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ slug: string }>;
+  params: { slug: string };  // <-- no Promise here
 }): Promise<Metadata> {
-  const { slug } = await params;  // Await params here
+  const { slug } = params;  // no await
   const project = await getProjectBySlug(slug);
 
   return {
@@ -18,10 +17,10 @@ export async function generateMetadata({
     openGraph: {
       title: project.title,
       description: project.short || "Project Detail Page",
-      
     },
   };
 }
+
 export async function generateStaticParams() {
   return getAllProjectSlugs();
 }
@@ -29,9 +28,9 @@ export async function generateStaticParams() {
 export default async function ProjectDetail({
   params,
 }: {
-  params: Promise<{ slug: string }>;
+  params: { slug: string };  // <-- no Promise here
 }) {
-  const { slug } = await params;
+  const { slug } = params;  // no await
   const project = await getProjectBySlug(slug);
   return <ProjectDetails project={project} />;
 }

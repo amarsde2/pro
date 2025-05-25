@@ -6,9 +6,9 @@ import { Metadata } from 'next';
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ slug: string }>;
+  params: { slug: string };  // <-- not Promise
 }): Promise<Metadata> {
-  const { slug } = await params;  // Await params here
+  const { slug } = params; // no await
   const post = await getPostBySlug(slug);
 
   return {
@@ -21,7 +21,6 @@ export async function generateMetadata({
   };
 }
 
-
 export async function generateStaticParams() {
   return getAllPostsSlugs();
 }
@@ -30,10 +29,10 @@ export default async function BlogDetail(
   {
     params,
   }: {
-    params: Promise<{ slug: string }>;
+    params: { slug: string };  // <-- not Promise
   }
 ) {
-  const { slug } = await params;
+  const { slug } = params;  // no await
   const post = await getPostBySlug(slug);
   return <BlogDetails post={post} />;
 }
