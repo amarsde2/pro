@@ -21,7 +21,7 @@ interface Options {
 // ✅ Origin check: only allow requests from your site
 function isAllowedOrigin(referer: string | null): boolean {
   return referer?.startsWith(ALLOWED_ORIGIN) ?? false;
-}https://www.amaraiverse.com/
+}
 
 // ✅ IP allowlist
 function isAllowedIP(ip: string | null, allowedIPs?: string[]): boolean {
